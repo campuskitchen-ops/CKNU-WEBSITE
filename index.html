@@ -13,7 +13,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=202610020105">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <link rel="stylesheet" href="styles.css?v=202610220007">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -28,6 +29,7 @@
       <nav id="site-nav" class="site-nav" aria-label="Main">
         <a href="#impact">Impact</a>
         <a href="#how">How it works</a>
+        <a href="#fridges">Fridges</a>
         <a href="#get-involved">Get involved</a>
         <a href="#contact">Contact</a>
         <!-- The food tracker shift leads use. Update this if its address changes. -->
@@ -106,9 +108,26 @@
           <li class="step step-rose">
             <span class="step-number">3</span>
             <h3>Deliver</h3>
-            <p>Meals go into community fridges across Evanston, open 24/7 and free for anyone.</p>
+            <p>Meals go into community fridges across Evanston.</p>
           </li>
         </ol>
+      </div>
+    </section>
+
+    <!-- Where we deliver. To change a fridge, edit its card below and its entry in FRIDGES in script.js. -->
+    <section id="fridges" class="section">
+      <div class="container">
+        <h2>Where we deliver</h2>
+        <p>Our meals go into five Evanston Community Fridges. They're open 24/7 and free for anyone: take what you need, leave what you can.</p>
+        <div id="fridge-map" class="fridge-map" role="region" aria-label="Map of the five community fridges" hidden></div>
+        <ul class="fridge-cards">
+          <li class="fridge-card"><h3>The Soul Fridge</h3><p>1601 Payne Street<br>at Soul &amp; Smoke</p><a class="text-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=1601%20Payne%20St%2C%20Evanston%2C%20IL" rel="noopener">Directions →</a></li>
+          <li class="fridge-card"><h3>The CNE Fridge</h3><p>1335 Dodge Avenue<br>at Childcare Network of Evanston</p><a class="text-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=1335%20Dodge%20Ave%2C%20Evanston%2C%20IL" rel="noopener">Directions →</a></li>
+          <li class="fridge-card"><h3>The Sunrise Fridge</h3><p>620 Madison Street<br>at Reba Place Church</p><a class="text-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=620%20Madison%20St%2C%20Evanston%2C%20IL" rel="noopener">Directions →</a></li>
+          <li class="fridge-card"><h3>The Hearts + Hands Fridge</h3><p>1928 Darrow Avenue<br>at St. Andrew's Church</p><a class="text-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=1928%20Darrow%20Ave%2C%20Evanston%2C%20IL" rel="noopener">Directions →</a></li>
+          <li class="fridge-card"><h3>The WCE Fridge</h3><p>615 Church Street (in the alley)<br>at the Woman's Club of Evanston</p><a class="text-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=615%20Church%20St%2C%20Evanston%2C%20IL" rel="noopener">Directions →</a></li>
+        </ul>
+        <p class="stats-note">More about the fridges at <a href="https://www.evanstoncommunityfridges.com" rel="noopener">evanstoncommunityfridges.com</a>.</p>
       </div>
     </section>
 
@@ -166,6 +185,7 @@
     </div>
   </footer>
 
-  <script src="script.js?v=202610020105"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="script.js?v=202610220007"></script>
 </body>
 </html>

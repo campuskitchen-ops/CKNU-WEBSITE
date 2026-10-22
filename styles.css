@@ -304,6 +304,64 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--periwinkle); ou
 
 .cards-note { margin-top: 20px; color: var(--muted); }
 
+/* Where we deliver: map of the community fridges */
+.fridge-map {
+  height: 380px;
+  margin-top: 24px;
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  z-index: 0;
+}
+.fridge-map[hidden] { display: none; }
+.fridge-map .leaflet-popup-content { font-family: var(--body-font); font-size: 0.95rem; }
+.fridge-map .leaflet-popup-content a { color: var(--purple); font-weight: 700; }
+.fridge-map .leaflet-popup-content b { font-family: var(--heading-font); text-transform: uppercase; color: var(--purple); letter-spacing: 0.03em; }
+.fridge-pin {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: var(--white);
+  border: 3px solid var(--white);
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.35);
+  font-family: var(--heading-font);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.fridge-cards {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+  gap: 12px;
+}
+.fridge-card {
+  border: 2px solid var(--line);
+  border-top: 6px solid var(--purple);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+.fridge-cards { counter-reset: fridge; }
+.fridge-card { counter-increment: fridge; }
+.fridge-card h3 { font-size: 1.05rem; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.fridge-card h3::before {
+  content: counter(fridge);
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: var(--white);
+  font-size: 0.9rem;
+}
+.fridge-card p { margin: 0 0 8px; color: var(--muted); font-size: 0.95rem; }
+
 /* Phones and small tablets */
 /* The full menu needs about 770px; below that it becomes the Menu button. */
 @media (max-width: 860px) {
@@ -333,6 +391,10 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--periwinkle); ou
   .hero-art img { width: 160px; }
   .steps, .cards, .contact-grid { grid-template-columns: 1fr; }
   .section { padding: 44px 0; }
+  .fridge-map { height: 300px; }
+  .fridge-card { padding: 12px; }
+  .fridge-card h3 { font-size: 0.95rem; }
+  .fridge-card p { font-size: 0.88rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

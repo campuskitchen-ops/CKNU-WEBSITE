@@ -74,3 +74,37 @@ async function addLiveImpact() {
   }
 }
 addLiveImpact();
+
+// Where we deliver: a map of the five community fridges (Leaflet + OpenStreetMap).
+// If the map library can't load, the fridge cards below it still show everything.
+const FRIDGES = [
+  { name: "The Soul Fridge", address: "1601 Payne Street", host: "Soul & Smoke", lat: 42.05716, lng: -87.69460, map: "1601 Payne St, Evanston, IL" },
+  { name: "The CNE Fridge", address: "1335 Dodge Avenue", host: "Childcare Network of Evanston", lat: 42.04247, lng: -87.69888, map: "1335 Dodge Ave, Evanston, IL" },
+  { name: "The Sunrise Fridge", address: "620 Madison Street", host: "Reba Place Church", lat: 42.03153, lng: -87.68003, map: "620 Madison St, Evanston, IL" },
+  { name: "The Hearts + Hands Fridge", address: "1928 Darrow Avenue", host: "St. Andrew's Church", lat: 42.05316, lng: -87.69777, map: "1928 Darrow Ave, Evanston, IL" },
+  { name: "The WCE Fridge", address: "615 Church Street (in the alley)", host: "Woman's Club of Evanston", lat: 42.04812, lng: -87.68062, map: "615 Church St, Evanston, IL" },
+];
+
+function showFridgeMap() {
+  const box = document.getElementById("fridge-map");
+  if (!box || !window.L) return;
+  box.hidden = false;
+  const map = L.map(box, { scrollWheelZoom: false });
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(map);
+  const points = FRIDGES.map((fridge, i) => {
+    const icon = L.divIcon({ className: "", html: `<span class="fridge-pin">${i + 1}</span>`, iconSize: [30, 30], iconAnchor: [15, 15], popupAnchor: [0, -14] });
+    const directions = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(fridge.map)}`;
+    const popup = document.createElement("div");
+    const title = document.createElement("b"); title.textContent = fridge.name;
+    const where = document.createElement("div"); where.textContent = `${fridge.address}, ${fridge.host}`;
+    const link = document.createElement("a"); link.href = directions; link.rel = "noopener"; link.textContent = "Directions →";
+    popup.append(title, where, link);
+    L.marker([fridge.lat, fridge.lng], { icon, title: fridge.name, alt: fridge.name }).addTo(map).bindPopup(popup);
+    return [fridge.lat, fridge.lng];
+  });
+  map.fitBounds(points, { padding: [36, 36] });
+}
+showFridgeMap();
