@@ -362,6 +362,13 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--periwinkle); ou
 }
 .fridge-card p { margin: 0 0 8px; color: var(--muted); font-size: 0.95rem; }
 
+/* Find our kitchen */
+.find-us { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+.find-us img { width: 100%; max-width: 440px; justify-self: center; border-radius: var(--radius); border: 2px solid var(--line); }
+.find-address { font-family: var(--heading-font); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; font-size: 1.2rem; color: var(--teal); }
+.find-steps { padding-left: 22px; margin: 0 0 16px; }
+.find-steps li { margin-bottom: 8px; }
+
 /* Phones and small tablets */
 /* The full menu needs about 770px; below that it becomes the Menu button. */
 @media (max-width: 860px) {
@@ -392,6 +399,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--periwinkle); ou
   .steps, .cards, .contact-grid { grid-template-columns: 1fr; }
   .section { padding: 44px 0; }
   .fridge-map { height: 300px; }
+  .find-us { grid-template-columns: 1fr; gap: 24px; }
   .fridge-card { padding: 12px; }
   .fridge-card h3 { font-size: 0.95rem; }
   .fridge-card p { font-size: 0.88rem; }
