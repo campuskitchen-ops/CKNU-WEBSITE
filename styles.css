@@ -408,3 +408,53 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--periwinkle); ou
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+/* Shift sign-up page (signup.html) */
+.signup-section h1 { font-size: clamp(2rem, 6vw, 3rem); }
+.shift-kinds { margin: 8px 0 20px; border: 2px solid var(--line); border-radius: var(--radius); padding: 10px 16px; }
+.shift-kinds summary { cursor: pointer; font-weight: 700; color: var(--purple); }
+.shift-kinds dl { margin: 10px 0 0; }
+.shift-kinds dt { font-family: var(--heading-font); text-transform: uppercase; letter-spacing: 0.04em; color: var(--purple); margin-top: 8px; }
+.shift-kinds dd { margin: 0; color: var(--muted); }
+.shift-picker { display: grid; gap: 8px; margin: 8px 0 20px; }
+.picker-day { font-size: 1.1rem; margin: 14px 0 2px; color: var(--teal); }
+.pick {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+.pick:has(input:checked) { border-color: var(--purple); background: #f6f2fa; }
+.pick.full { opacity: 0.55; cursor: not-allowed; }
+.pick input { width: 22px; height: 22px; accent-color: var(--purple); flex: none; }
+.pick-name { flex: 1; }
+.pick-spots { font-size: 0.9rem; font-weight: 700; color: var(--teal); white-space: nowrap; }
+.pick-spots.last { color: #a3261b; }
+.pick-spots.none { color: var(--muted); }
+.signup-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.signup-fields label { display: block; font-weight: 700; color: var(--purple); }
+.signup-fields input {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  padding: 12px;
+  font: inherit;
+  font-size: 16px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+}
+.signup-fields input:focus { outline: 3px solid var(--periwinkle); outline-offset: 1px; }
+.signup-error { color: #a3261b; font-weight: 700; min-height: 1em; }
+.signup-error:empty { display: none; }
+.signup-done { margin-top: 8px; }
+.done-list { padding-left: 20px; }
+.done-list li { margin-bottom: 8px; }
+.signup-warning { background: #fdf0d5; color: #6b4600; border-radius: 10px; padding: 10px 14px; }
+.signup-note { margin-top: 28px; color: var(--muted); }
+#signup-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+@media (max-width: 600px) {
+  .signup-fields { grid-template-columns: 1fr; }
+}

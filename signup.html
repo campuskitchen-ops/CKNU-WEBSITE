@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign up for a shift · The Campus Kitchen at Northwestern University</title>
+  <meta name="description" content="Sign up for a CKNU volunteer shift: recovery, resourcing, meal prep or delivery. Northwestern students, no experience needed.">
+  <meta property="og:title" content="Sign up for a CKNU shift">
+  <meta property="og:description" content="Pick a shift in the next two weeks. No experience needed.">
+  <meta property="og:image" content="assets/logo-icon-cknu.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="styles.css?v=202610261724">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./" aria-label="The Campus Kitchen at Northwestern University, home">
+        <img src="assets/logo-icon.png" alt="" width="44" height="44">
+        <span class="brand-name">The Campus Kitchen<br><small>at Northwestern University</small></span>
+      </a>
+      <a class="button button-small button-outline" href="./">Back to cknu.org</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Cancelling a spot: signup.html?cancel=<token> from a volunteer's confirmation. -->
+    <section id="cancel" class="section signup-section" hidden>
+      <div class="container narrow">
+        <h1>Cancel your spot</h1>
+        <p id="cancel-text">Can't make it? Tap below and your spot opens up for someone else.</p>
+        <button type="button" id="cancel-btn" class="button">Cancel my spot</button>
+        <p class="signup-error" id="cancel-error" role="alert"></p>
+        <p><a class="text-link" href="signup.html">Sign up for another shift →</a></p>
+      </div>
+    </section>
+
+    <section id="signup" class="section signup-section">
+      <div class="container narrow">
+        <h1>Sign up for a shift</h1>
+        <p>Pick any shifts in the next two weeks, then add your name and Northwestern email. No experience needed. Wear long pants and closed-toe shoes; we'll give you gloves and a hairnet.</p>
+        <p>Shifts are at our kitchen at <b>1835 Hinman Avenue</b>: <a href="./#find-us">how to find it</a>.</p>
+
+        <details class="shift-kinds">
+          <summary>What happens on each shift?</summary>
+          <dl>
+            <dt>Recovery</dt><dd>Pick up surplus food from our partners and bring it back to the kitchen.</dd>
+            <dt>Resourcing</dt><dd>Sort, weigh, temp and label what came in.</dd>
+            <dt>Meal prep</dt><dd>Portion the food into meals and label them.</dd>
+            <dt>Delivery</dt><dd>Take the meals to the community fridges around Evanston.</dd>
+          </dl>
+        </details>
+
+        <form id="signup-form" novalidate>
+          <div id="shift-picker" class="shift-picker" aria-live="polite">
+            <p class="muted">Loading shifts…</p>
+          </div>
+
+          <div class="signup-fields">
+            <label>Your name
+              <input name="name" required maxlength="100" autocomplete="name">
+            </label>
+            <label>Northwestern email
+              <input name="email" type="email" required maxlength="200" autocomplete="email" placeholder="you@u.northwestern.edu">
+            </label>
+          </div>
+          <p class="signup-error" id="signup-error" role="alert"></p>
+          <button type="submit" id="signup-btn" class="button" disabled>Pick a shift</button>
+        </form>
+
+        <div id="signup-done" class="signup-done" hidden></div>
+        <p class="fine-print signup-note">Questions? Email <a href="mailto:campuskitchen@u.northwestern.edu">campuskitchen@u.northwestern.edu</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <img src="assets/logo-lockup.png" alt="The Campus Kitchen at Northwestern University" width="258" height="110">
+      <p class="fine-print">© 2026 The Campus Kitchen at Northwestern University</p>
+    </div>
+  </footer>
+
+  <script src="signup.js?v=202610261724"></script>
+</body>
+</html>
