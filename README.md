@@ -23,12 +23,14 @@ The domain is registered with **Squarespace** (Domains → cknu.org → DNS). Th
 | A | `@` | `185.199.109.153` |
 | A | `@` | `185.199.110.153` |
 | A | `@` | `185.199.111.153` |
-| CNAME | `www` | `dylankiellstone-ops.github.io` |
-| TXT | `_github-pages-challenge-dylankiellstone-ops` | The verification code from GitHub → Settings → Pages → Verified domains |
+| CNAME | `www` | `campuskitchen-ops.github.io` |
+| TXT | `_github-pages-challenge-campuskitchen-ops` | The verification code from the campuskitchen-ops account's GitHub **Settings → Pages → Verified domains** |
 
 The Squarespace Defaults preset (the A records pointing at Squarespace) must be removed, or cknu.org keeps showing Squarespace.
 
-After the DNS is set, go to **Settings → Pages**: **Custom domain** should show `cknu.org` with a green tick. Then turn on **Enforce HTTPS** (it can take up to an hour or so to become available).
+After the DNS is set, go to this repo's **Settings → Pages**: **Custom domain** should show `cknu.org` with a green tick. Then turn on **Enforce HTTPS** (it can take up to an hour or so to become available).
+
+**cknu.org is verified on the campuskitchen-ops GitHub account**, so only repos owned by that account can use it. If this repo ever moves to another account or organization, verify cknu.org there first (a new TXT record like the one above, with that account's name), remove it from the old account's verified domains, and re-enter `cknu.org` under **Custom domain**. Otherwise cknu.org shows GitHub's "Site not found" page after the next change. That happened in October 2026 when the repo moved here from dylankiellstone-ops.
 
 ## Editing the site
 
