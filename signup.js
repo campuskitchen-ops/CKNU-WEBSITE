@@ -1,5 +1,5 @@
-// CKNU shift sign-up: lists the open shifts from the food tracker's database (they open
-// two weeks at a time, every other Wednesday) and signs volunteers up. Only totals and the
+// CKNU shift sign-up: lists the open shifts from the food tracker's database (they open a batch
+// of weeks at a time, on a schedule set in the tracker's Admin tab) and signs volunteers up. Only totals and the
 // volunteer's own sign-ups ever come back; nobody else's name or email is public.
 const SUPABASE_URL = "https://otsgpdlhjulixxqejkzk.supabase.co";
 // The tracker's publishable key. It's designed to be public.
@@ -115,12 +115,22 @@ function formatOpening(dates) {
   return `${formatDay(dates.next_opens_on)} at ${time}`;
 }
 
-// Shifts open two weeks at a time (the tracker's signup_window). Empty when nothing more is
+// When the next batch of shifts opens (the tracker's signup_window). Empty when nothing more is
 // scheduled, e.g. at the end of the quarter.
 function nextBatchText(dates) {
   return dates?.next_opens_on
-    ? `The next two weeks (${formatRange(dates.next_open_from, dates.next_open_until)}) open on ${formatOpening(dates)}.`
+    ? `Shifts for ${formatRange(dates.next_open_from, dates.next_open_until)} open on ${formatOpening(dates)}.`
     : "";
+}
+
+// "Shifts open two weeks at a time, every other Wednesday at 10:30 AM." from the quarter's
+// sign-up schedule, so the intro stays right when the Admin tab changes it.
+function scheduleText(dates) {
+  const weeks = dates?.batch_weeks;
+  if (!weeks || !dates.opens_weekday || !dates.opens_time) return "";
+  const count = ["", "one week", "two weeks", "three weeks", "four weeks", "five weeks", "six weeks"][weeks] || `${weeks} weeks`;
+  const every = ["", "every", "every other", "every third", "every fourth", "every fifth", "every sixth"][weeks] || `every ${weeks} weeks on a`;
+  return `Shifts open ${count} at a time, ${every} ${dates.opens_weekday} at ${formatTime(dates.opens_time)}.`;
 }
 
 async function loadShifts() {
@@ -138,6 +148,7 @@ async function loadShifts() {
     return;
   }
   const next = nextBatchText(dates);
+  if (scheduleText(dates)) $("signup-schedule").textContent = scheduleText(dates);
   if (openShifts.length === 0) {
     picker.replaceChildren(el("p", {}, `No shifts are open right now. ${next || "Check back soon!"}`));
     return;
