@@ -6,7 +6,13 @@ const SUPABASE_URL = "https://otsgpdlhjulixxqejkzk.supabase.co";
 const SUPABASE_KEY = "sb_publishable_kUaii2SF5CKZDlovSbuNng_-UVfHbQS";
 const KITCHEN_ADDRESS = "1835 Hinman Ave, Evanston, IL 60201";
 const SITE = "https://cknu.org";
-const NU_EMAIL = /^[^@\s]+@u\.northwestern\.edu$/i;
+// Any Northwestern address: @u.northwestern.edu, @kellogg.northwestern.edu and so on.
+const NU_EMAIL = /^[^@\s]+@([a-z0-9-]+\.)*northwestern\.edu$/i;
+// The Volunteer Directory Google Form. New volunteers answer its questions on this page, and
+// they're sent to the form too so its response sheet stays complete. If the form's questions
+// are replaced, get the new entry numbers from its "Get pre-filled link" and update them here.
+const DIRECTORY_FORM = "https://docs.google.com/forms/d/e/1FAIpQLSfnrxlcAiUZ7Djp8qQmN8zsRhXvfELrPON_q7XmXcgrRSg3ow/formResponse";
+const DIRECTORY_FIELDS = { name: "entry.2076689688", phone: "entry.1758621544", email: "entry.1435115760", notes: "entry.1851840888" };
 
 const $ = (id) => document.getElementById(id);
 
@@ -31,6 +37,7 @@ async function rpc(name, args = {}) {
   if (!response.ok) {
     const error = new Error(data?.message || `Request failed (${response.status})`);
     error.status = response.status;
+    error.hint = data?.hint;
     throw error;
   }
   return data;
@@ -167,8 +174,28 @@ function chosenShifts() {
 function updateButton() {
   const count = chosenShifts().length;
   const button = $("signup-btn");
+  const joining = !$("directory").hidden;
   button.disabled = count === 0;
-  button.textContent = count === 0 ? "Pick a shift" : `Sign up for ${count} shift${count === 1 ? "" : "s"}`;
+  button.textContent = count === 0 ? "Pick a shift"
+    : `${joining ? "Join and sign up" : "Sign up"} for ${count} shift${count === 1 ? "" : "s"}`;
+}
+
+// The tracker turns away anyone not in this school year's Volunteer Directory; ask its
+// questions right here instead of sending them off to the Google Form.
+function showDirectory() {
+  const directory = $("directory");
+  directory.hidden = false;
+  updateButton();
+  directory.scrollIntoView({ behavior: "smooth", block: "center" });
+  $("signup-form").phone.focus({ preventScroll: true });
+}
+
+// Google Forms doesn't let another site read its reply, so this can't confirm the answers
+// landed in the sheet; the tracker keeps its own copy either way.
+function addToDirectoryForm(answers) {
+  const body = new URLSearchParams();
+  for (const [key, field] of Object.entries(DIRECTORY_FIELDS)) body.append(field, answers[key] || "");
+  return fetch(DIRECTORY_FORM, { method: "POST", mode: "no-cors", keepalive: true, body }).catch(() => {});
 }
 
 async function submit(event) {
@@ -179,17 +206,30 @@ async function submit(event) {
   const name = form.name.value.trim();
   const email = form.email.value.trim();
   const shifts = chosenShifts();
+  const joining = !$("directory").hidden;
+  const phone = form.phone.value.trim();
+  const notes = form.notes.value.trim();
   if (!shifts.length) return void (error.textContent = "Pick at least one shift.");
   if (!name) return void (error.textContent = "Enter your name.");
-  if (!NU_EMAIL.test(email)) return void (error.textContent = "Use your Northwestern email (it ends in @u.northwestern.edu).");
+  if (!NU_EMAIL.test(email)) return void (error.textContent = "Use your Northwestern email (it ends in northwestern.edu).");
+  if (joining && phone.replace(/\D/g, "").length < 7) {
+    error.textContent = "Add your phone number so your shift lead can reach you.";
+    return void form.phone.focus();
+  }
 
   const button = $("signup-btn");
   button.disabled = true;
   button.textContent = "Signing you up…";
   let results;
   try {
+    if (joining) {
+      await rpc("join_volunteer_directory", { p_name: name, p_email: email, p_phone: phone, p_notes: notes });
+      addToDirectoryForm({ name, email, phone, notes });
+      $("directory").hidden = true; // they're in now, so trying again won't add them twice
+    }
     results = await rpc("sign_up_for_shifts", { p_name: name, p_email: email, p_shifts: shifts });
   } catch (err) {
+    if (err.hint === "not_in_directory") return void showDirectory();
     error.textContent = err.status === 400 && err.message ? err.message : "Couldn't sign you up. Check your connection and try again.";
     updateButton();
     return;
