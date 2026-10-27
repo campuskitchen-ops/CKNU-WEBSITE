@@ -100,11 +100,19 @@ function formatRange(fromIso, toIso) {
     : `${month(from)} ${from.getDate()}–${month(to)} ${to.getDate()}`;
 }
 
+// "Wednesday, Nov 11 at 10:30 AM", in Evanston time.
+function formatOpening(dates) {
+  if (!dates.next_opens_at) return formatDay(dates.next_opens_on);
+  const time = new Date(dates.next_opens_at)
+    .toLocaleTimeString("en-US", { timeZone: "America/Chicago", hour: "numeric", minute: "2-digit" });
+  return `${formatDay(dates.next_opens_on)} at ${time}`;
+}
+
 // Shifts open two weeks at a time (the tracker's signup_window). Empty when nothing more is
 // scheduled, e.g. at the end of the quarter.
 function nextBatchText(dates) {
   return dates?.next_opens_on
-    ? `The next two weeks (${formatRange(dates.next_open_from, dates.next_open_until)}) open on ${formatDay(dates.next_opens_on)}.`
+    ? `The next two weeks (${formatRange(dates.next_open_from, dates.next_open_until)}) open on ${formatOpening(dates)}.`
     : "";
 }
 
