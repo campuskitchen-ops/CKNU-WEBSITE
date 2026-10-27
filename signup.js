@@ -306,6 +306,45 @@ function downloadCalendar(ok) {
   setTimeout(() => URL.revokeObjectURL(link.href), 2000);
 }
 
+// ----- Cancelling by email, for anyone without their cancel link -----
+
+function myShiftItem(shift) {
+  const status = el("span", { class: "muted" });
+  const button = el("button", { type: "button", class: "button button-small button-outline" }, "Cancel");
+  button.addEventListener("click", async () => {
+    button.disabled = true;
+    status.textContent = "";
+    try {
+      await rpc("cancel_signup", { p_token: shift.cancel_token });
+      button.remove();
+      status.textContent = " Cancelled. Thanks for letting us know!";
+    } catch {
+      button.disabled = false;
+      status.textContent = " Couldn't cancel. Check your connection and try again.";
+    }
+  });
+  return el("li", {}, el("b", {}, `${formatDay(shift.shift_date)} · ${shiftLabel(shift)}`), " ", button, status);
+}
+
+async function findMyShifts(event) {
+  event.preventDefault();
+  const list = $("my-shifts");
+  const email = event.currentTarget.email.value.trim();
+  if (!NU_EMAIL.test(email)) {
+    return void list.replaceChildren(el("p", { class: "signup-error" }, "Use your Northwestern email (it ends in northwestern.edu)."));
+  }
+  list.replaceChildren(el("p", { class: "muted" }, "Looking up your shifts…"));
+  let shifts;
+  try {
+    shifts = await rpc("my_signups", { p_email: email });
+  } catch {
+    return void list.replaceChildren(el("p", { class: "signup-error" }, "Couldn't look up your shifts. Check your connection and try again."));
+  }
+  list.replaceChildren(shifts.length
+    ? el("ul", { class: "done-list" }, ...shifts.map(myShiftItem))
+    : el("p", {}, "No upcoming shifts for that email. If you signed up with a different one, try that."));
+}
+
 // ----- Cancelling from a confirmation link -----
 
 function showCancel(token) {
@@ -337,7 +376,9 @@ if (cancelToken && /^[0-9a-f-]{36}$/i.test(cancelToken)) {
   if (saved) {
     $("signup-form").name.value = saved.name || "";
     $("signup-form").email.value = saved.email || "";
+    $("lookup-form").email.value = saved.email || "";
   }
   $("signup-form").addEventListener("submit", submit);
+  $("lookup-form").addEventListener("submit", findMyShifts);
   loadShifts();
 }
