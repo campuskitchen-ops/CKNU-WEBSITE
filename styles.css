@@ -434,7 +434,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--periwinkle); ou
 .pick-spots { font-size: 0.9rem; font-weight: 700; color: var(--teal); white-space: nowrap; }
 .pick-spots.last { color: #a3261b; }
 .pick-spots.none { color: var(--muted); }
-.signup-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.signup-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
 .signup-fields label { display: block; font-weight: 700; color: var(--purple); }
 .signup-fields input {
   display: block;
