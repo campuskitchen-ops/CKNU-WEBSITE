@@ -1,6 +1,6 @@
 # The Campus Kitchen at Northwestern University: website
 
-The public website for CKNU. It's a single page with these sections: our impact (live numbers), how it works (recover, prep, deliver), get involved (volunteer, shift lead, partner with us), and contact. There's also a **Team login** button that links to the CKNU food tracker shift leads use.
+The public website for CKNU. It's a single page with these sections: our impact (live numbers), how it works (recover, prep, deliver), get involved (volunteer, shift lead, partner with us), and contact. There's also a **Team login** button that links to the CKNU food tracker shift leads use (https://cknu-tracker.pages.dev).
 
 - **Live site:** https://cknu.org (also www.cknu.org), once GitHub Pages and the DNS are set up (see below)
 - **Hosting:** GitHub Pages. It's free, with no deploy limits, and updates about a minute after each change to `main`.
@@ -59,7 +59,7 @@ assets/        logos, favicon and phone home-screen icon
 - **Where we deliver (map):** the five Evanston Community Fridges are listed twice: as cards in the `#fridges` section of `index.html`, and in `FRIDGES` at the bottom of `script.js` (name, address, host, map position, and the address used for directions). Change both if a fridge moves. The map uses Leaflet and OpenStreetMap (free, no account); if they can't load, the cards still show everything.
 - **Find our kitchen:** the `#find-us` section of `index.html` has the address (1835 Hinman Ave), walking directions (the same ones as the shift sign-up sheet's "Read this first" tab), and the location map image `assets/hinman-map.jpg`. Update both the site and the sign-up sheet if the entrance changes.
 - **Shift sign-up page:** `signup.html` shows every open shift in the next two weeks, straight from the tracker's schedule (`open_shifts`). Volunteers pick shifts, enter their name and @u.northwestern.edu email, and get calendar links plus a cancel link. Shifts, spots per shift and breaks are all edited in the tracker's Shifts tab, not here. After changing `signup.js` or `styles.css`, bump the `?v=` numbers in `signup.html` too.
-- **Team login link:** if the food tracker moves (for example to GitHub Pages), search `index.html` for `bucolic-brigadeiros-cb611c.netlify.app` and replace both copies.
+- **Team login link:** the button at the top and the link in the footer both go to the food tracker at `https://cknu-tracker.pages.dev` (on Cloudflare Pages; it used to be on Netlify). If the tracker moves, search `index.html` for `cknu-tracker.pages.dev` and replace both copies.
 - **Photos:** none on the page for now. The stock photos were taken down until CKNU has good photos of its own. Real photos waiting to go up are saved in `assets/photos/` (not shown anywhere yet): `delivery.jpg` (a delivery to a community fridge) and `meal-prep.jpg` (packed meals in the prep kitchen). Still needed: a recover photo. The plan is to add a photo section once there are three (one each for recover, prep and deliver). The old photo section and its tap-to-enlarge pop-up are in the git history (commit `b902cb0`); keep each photo under about 500 KB.
 
 ## Brand rules (from the CKNU Brand Guidelines)
