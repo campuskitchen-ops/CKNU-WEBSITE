@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=202610271415">
+  <link rel="stylesheet" href="styles.css?v=202610271530">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -72,6 +72,22 @@
               <input name="email" type="email" required maxlength="200" autocomplete="email" placeholder="you@u.northwestern.edu">
             </label>
           </div>
+
+          <!-- Shown when someone isn't in this school year's Volunteer Directory: the Google Form's
+               questions, answered right here. signup.js sends them to the tracker and the form. -->
+          <fieldset id="directory" class="directory" hidden>
+            <legend>Join the Volunteer Directory</legend>
+            <p>Welcome! Looks like you're new to CKNU this year. Leave a way for your shift lead to reach you (mainly in case a shift gets cancelled), and you're all set.</p>
+            <div class="signup-fields">
+              <label>Phone number
+                <input name="phone" type="tel" maxlength="30" autocomplete="tel" placeholder="(847) 555-0123">
+              </label>
+              <label>Anything else your shift lead should know? <span class="optional">(optional)</span>
+                <textarea name="notes" rows="2" maxlength="1000"></textarea>
+              </label>
+            </div>
+          </fieldset>
+
           <p class="signup-error" id="signup-error" role="alert"></p>
           <button type="submit" id="signup-btn" class="button" disabled>Pick a shift</button>
         </form>
@@ -89,6 +105,6 @@
     </div>
   </footer>
 
-  <script src="signup.js?v=202610271500"></script>
+  <script src="signup.js?v=202610271530"></script>
 </body>
 </html>

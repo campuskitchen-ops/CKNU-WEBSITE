@@ -436,7 +436,8 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--periwinkle); ou
 .pick-spots.none { color: var(--muted); }
 .signup-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
 .signup-fields label { display: block; font-weight: 700; color: var(--purple); }
-.signup-fields input {
+.signup-fields input,
+.signup-fields textarea {
   display: block;
   width: 100%;
   margin-top: 4px;
@@ -446,7 +447,14 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--periwinkle); ou
   border: 2px solid var(--line);
   border-radius: 10px;
 }
-.signup-fields input:focus { outline: 3px solid var(--periwinkle); outline-offset: 1px; }
+.signup-fields textarea { resize: vertical; }
+.signup-fields input:focus,
+.signup-fields textarea:focus { outline: 3px solid var(--periwinkle); outline-offset: 1px; }
+.directory { margin: 0 0 20px; padding: 12px 16px 0; border: 2px solid var(--periwinkle); border-radius: var(--radius); }
+.directory legend { padding: 0 6px; font-family: var(--heading-font); text-transform: uppercase; letter-spacing: 0.04em; color: var(--purple); }
+.directory p { margin: 0 0 12px; }
+.directory .signup-fields { grid-template-columns: 1fr; max-width: 460px; }
+.optional { font-weight: 400; color: var(--muted); }
 .signup-error { color: #a3261b; font-weight: 700; min-height: 1em; }
 .signup-error:empty { display: none; }
 .signup-done { margin-top: 8px; }
