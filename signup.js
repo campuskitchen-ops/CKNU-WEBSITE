@@ -1,6 +1,6 @@
-// CKNU shift sign-up: lists the next two weeks of open shifts from the food tracker's
-// database and signs volunteers up. Only totals and the volunteer's own sign-ups ever
-// come back; nobody else's name or email is public.
+// CKNU shift sign-up: lists the open shifts from the food tracker's database (they open
+// two weeks at a time, every other Wednesday) and signs volunteers up. Only totals and the
+// volunteer's own sign-ups ever come back; nobody else's name or email is public.
 const SUPABASE_URL = "https://otsgpdlhjulixxqejkzk.supabase.co";
 // The tracker's publishable key. It's designed to be public.
 const SUPABASE_KEY = "sb_publishable_kUaii2SF5CKZDlovSbuNng_-UVfHbQS";
@@ -90,19 +90,45 @@ function recall() {
 
 let openShifts = [];
 
+// "Nov 15–28", or "Nov 29–Dec 12" across two months.
+function formatRange(fromIso, toIso) {
+  const from = parseDate(fromIso);
+  const to = parseDate(toIso);
+  const month = (date) => date.toLocaleDateString("en-US", { month: "short" });
+  return from.getMonth() === to.getMonth()
+    ? `${month(from)} ${from.getDate()}–${to.getDate()}`
+    : `${month(from)} ${from.getDate()}–${month(to)} ${to.getDate()}`;
+}
+
+// Shifts open two weeks at a time (the tracker's signup_window). Empty when nothing more is
+// scheduled, e.g. at the end of the quarter.
+function nextBatchText(dates) {
+  return dates?.next_opens_on
+    ? `The next two weeks (${formatRange(dates.next_open_from, dates.next_open_until)}) open on ${formatDay(dates.next_opens_on)}.`
+    : "";
+}
+
 async function loadShifts() {
   const picker = $("shift-picker");
+  let dates = null;
   try {
-    openShifts = await rpc("open_shifts");
+    // The page still works if signup_window isn't in the database yet; it just skips the dates.
+    [openShifts, dates] = await Promise.all([
+      rpc("open_shifts"),
+      rpc("signup_window").then((rows) => rows?.[0] || null).catch(() => null),
+    ]);
   } catch {
     picker.replaceChildren(el("p", { class: "signup-error" },
       "Sign-ups aren't working right now. Email campuskitchen@u.northwestern.edu and we'll get you on a shift."));
     return;
   }
+  const next = nextBatchText(dates);
   if (openShifts.length === 0) {
-    picker.replaceChildren(el("p", {}, "No shifts are open in the next two weeks. Check back soon!"));
+    picker.replaceChildren(el("p", {}, `No shifts are open right now. ${next || "Check back soon!"}`));
     return;
   }
+  $("signup-window").textContent = next;
+  $("signup-window").hidden = !next;
   let day = "";
   const parts = [];
   for (const shift of openShifts) {

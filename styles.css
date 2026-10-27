@@ -434,7 +434,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--periwinkle); ou
 .pick-spots { font-size: 0.9rem; font-weight: 700; color: var(--teal); white-space: nowrap; }
 .pick-spots.last { color: #a3261b; }
 .pick-spots.none { color: var(--muted); }
-.signup-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.signup-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
 .signup-fields label { display: block; font-weight: 700; color: var(--purple); }
 .signup-fields input {
   display: block;
@@ -454,6 +454,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--periwinkle); ou
 .done-list li { margin-bottom: 8px; }
 .signup-warning { background: #fdf0d5; color: #6b4600; border-radius: 10px; padding: 10px 14px; }
 .signup-note { margin-top: 28px; color: var(--muted); }
+.signup-window { font-weight: 700; color: var(--teal); }
 #signup-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 @media (max-width: 600px) {
   .signup-fields { grid-template-columns: 1fr; }

@@ -23,12 +23,14 @@ The domain is registered with **Squarespace** (Domains → cknu.org → DNS). Th
 | A | `@` | `185.199.109.153` |
 | A | `@` | `185.199.110.153` |
 | A | `@` | `185.199.111.153` |
-| CNAME | `www` | `dylankiellstone-ops.github.io` |
-| TXT | `_github-pages-challenge-dylankiellstone-ops` | The verification code from GitHub → Settings → Pages → Verified domains |
+| CNAME | `www` | `campuskitchen-ops.github.io` |
+| TXT | `_github-pages-challenge-campuskitchen-ops` | The verification code from the campuskitchen-ops account's GitHub **Settings → Pages → Verified domains** |
 
 The Squarespace Defaults preset (the A records pointing at Squarespace) must be removed, or cknu.org keeps showing Squarespace.
 
-After the DNS is set, go to **Settings → Pages**: **Custom domain** should show `cknu.org` with a green tick. Then turn on **Enforce HTTPS** (it can take up to an hour or so to become available).
+After the DNS is set, go to this repo's **Settings → Pages**: **Custom domain** should show `cknu.org` with a green tick. Then turn on **Enforce HTTPS** (it can take up to an hour or so to become available).
+
+**cknu.org is verified on the campuskitchen-ops GitHub account**, so only repos owned by that account can use it. If this repo ever moves to another account or organization, verify cknu.org there first (a new TXT record like the one above, with that account's name), remove it from the old account's verified domains, and re-enter `cknu.org` under **Custom domain**. Otherwise cknu.org shows GitHub's "Site not found" page after the next change. That happened in October 2026 when the repo moved here from dylankiellstone-ops.
 
 ## Editing the site
 
@@ -58,7 +60,7 @@ assets/        logos, favicon and phone home-screen icon
   - **At the end of each school year,** add that year's tracker total to `HISTORY` and as a new bar in `index.html`, or leave it live; just don't do both, or it counts twice.
 - **Where we deliver (map):** the five Evanston Community Fridges are listed twice: as cards in the `#fridges` section of `index.html`, and in `FRIDGES` at the bottom of `script.js` (name, address, host, map position, and the address used for directions). Change both if a fridge moves. The map uses Leaflet and OpenStreetMap (free, no account); if they can't load, the cards still show everything.
 - **Find our kitchen:** the `#find-us` section of `index.html` has the address (1835 Hinman Ave), walking directions (the same ones as the shift sign-up sheet's "Read this first" tab), and the location map image `assets/hinman-map.jpg`. Update both the site and the sign-up sheet if the entrance changes.
-- **Shift sign-up page:** `signup.html` shows every open shift in the next two weeks, straight from the tracker's schedule (`open_shifts`). Volunteers pick shifts, enter their name and @u.northwestern.edu email, and get calendar links plus a cancel link. Shifts, spots per shift and breaks are all edited in the tracker's Shifts tab, not here. After changing `signup.js` or `styles.css`, bump the `?v=` numbers in `signup.html` too.
+- **Shift sign-up page:** `signup.html` shows every open shift, straight from the tracker's schedule (`open_shifts`). Shifts open two weeks at a time: every other Wednesday the next two weeks (Sunday to Saturday) open, and the page says when the next ones open (`signup_window`). That schedule lives in the tracker's database (its `supabase/setup.sql`), not here. Volunteers pick shifts, enter their name and @u.northwestern.edu email, and get calendar links plus a cancel link. Shifts, spots per shift and breaks are all edited in the tracker's Shifts tab, not here. After changing `signup.js` or `styles.css`, bump the `?v=` numbers in `signup.html` too.
 - **Team login link:** the button at the top and the link in the footer both go to the food tracker at `https://cknu-tracker.pages.dev` (on Cloudflare Pages; it used to be on Netlify). If the tracker moves, search `index.html` for `cknu-tracker.pages.dev` and replace both copies.
 - **Photos:** none on the page for now. The stock photos were taken down until CKNU has good photos of its own. Real photos waiting to go up are saved in `assets/photos/` (not shown anywhere yet): `delivery.jpg` (a delivery to a community fridge) and `meal-prep.jpg` (packed meals in the prep kitchen). Still needed: a recover photo. The plan is to add a photo section once there are three (one each for recover, prep and deliver). The old photo section and its tap-to-enlarge pop-up are in the git history (commit `b902cb0`); keep each photo under about 500 KB.
 
