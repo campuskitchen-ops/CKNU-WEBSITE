@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=202610271530">
+  <link rel="stylesheet" href="styles.css?v=202610271630">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -54,6 +54,18 @@
             <dt>Meal prep</dt><dd>Portion the food into meals and label them.</dd>
             <dt>Delivery</dt><dd>Take the meals to the community fridges around Evanston.</dd>
           </dl>
+        </details>
+
+        <!-- Cancelling without the cancel link: look up your shifts by email (signup.js). -->
+        <details class="shift-kinds cancel-lookup" id="cancel-lookup">
+          <summary>Can't make a shift? Cancel it here</summary>
+          <form id="lookup-form" novalidate>
+            <label>Your Northwestern email
+              <input name="email" type="email" required maxlength="200" autocomplete="email" placeholder="you@u.northwestern.edu">
+            </label>
+            <button type="submit" class="button button-small">Find my shifts</button>
+          </form>
+          <div id="my-shifts" aria-live="polite"></div>
         </details>
 
         <!-- When the next two weeks open, filled in by signup.js from the tracker's signup_window. -->
@@ -105,6 +117,6 @@
     </div>
   </footer>
 
-  <script src="signup.js?v=202610271530"></script>
+  <script src="signup.js?v=202610271630"></script>
 </body>
 </html>
