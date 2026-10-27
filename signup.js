@@ -254,7 +254,7 @@ function showDone(results) {
             el("a", { href: cancelLink(r.cancel_token) }, "Can't make it? Cancel"))
         : el("span", { class: "muted" }, ` ${words[r.result] || ""}`)))),
     ok.length > 0 && el("p", {}, el("button", { type: "button", class: "button", onclick: () => downloadCalendar(ok) }, "Add to my calendar")),
-    ok.length > 0 && el("p", { class: "signup-warning" }, "Add it to your calendar or save this page: the invite has your cancel link, in case you can't make it."),
+    ok.length > 0 && el("p", {}, "We're emailing you these details and your cancel link too, and we'll send a reminder before each shift."),
     el("p", {}, "See you at 1835 Hinman! ", el("a", { href: "./#find-us" }, "How to find us"), "."),
     el("p", {}, el("button", { type: "button", class: "button button-outline", onclick: () => location.reload() }, "Sign up for more shifts")),
   );
